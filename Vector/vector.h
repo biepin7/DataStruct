@@ -98,8 +98,21 @@ public:
         return e;
     }
 
+    Rank find(T const& e, Rank lo,Rank hi) const{ //无序向量的顺序查找：返回最后一个元素e的位置；失败时，返回lo - 1
+        while ((lo<hi--) && (e != _elem[hi]));//从后向前，顺序查找
+        return  hi;//若hi < lo，则意味着失败；否则hi即命中元素的秩
+    }
+    // PS : 我觉得这么写是不是有点问题
+
     /** 遍历接口 */
 
+    int disordered() const{ //返回相邻逆序对的总数，若判断是否有序，n>0 立马终止
+        int n = 0 ;//逆序对数，初始为0
+        for (int i = 1 ;i<_size;i++){ // 逐一检查各对相邻元素
+            n += (_elem[i-1] > _elem[i]); //逆序计数
+        }
+        return n;
+    }
 };
 
 
